@@ -52,4 +52,35 @@ class EventDispatcherTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($object1->tested);
         $this->assertTrue($object2->tested);
     }
+
+    public function testMultipleEventListenersCanBeRegisteredAtOnce()
+    {
+        $eventDispatcher = new EventDispatcher();
+
+        $listener1 = new GenericEventListener();
+        $listener2 = new GenericEventListener();
+
+        $closure1 = (function($eventData){
+            $eventData['eventObject']->tested1 = true;
+        });
+
+        $closure2 = (function($eventData){
+            $eventData['eventObject']->tested2 = true;
+        });
+
+        $listener1->setClosureTorun($closure1);
+        $listener2->setClosureTorun($closure2);
+
+        $listener1->setEventName('event.test');
+        $listener2->setEventName('event.test');
+
+        $eventDispatcher->registerEventListeners([$listener1, $listener2]);
+
+        $object = new \StdClass;    
+
+        $eventDispatcher->emit('event.test', ['eventObject' => $object]);
+
+        $this->assertTrue($object->tested1);
+        $this->assertTrue($object->tested2);
+    }
 }
