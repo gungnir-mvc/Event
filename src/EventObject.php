@@ -13,6 +13,8 @@ interface EventObject
 	 * Constructor
 	 * 
 	 * @param mixed $data The data to store in the event
+	 *
+	 * @return self
 	 */
 	public function __construct($data);
 

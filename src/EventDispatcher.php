@@ -20,8 +20,8 @@ class EventDispatcher
     /**
      * Triggers an event
      *
-     * @param  String       $eventName   Name of event to trigger
-     * @param  EventObject  $eventObject EventObject to pass to listeners
+     * @param  String           $eventName   Name of event to trigger
+     * @param  null|EventObject $eventObject EventObject to pass to listeners
      *
      * @return EventDispatcher
      */
