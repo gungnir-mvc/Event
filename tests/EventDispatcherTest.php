@@ -3,6 +3,7 @@ namespace Gungnir\Event\Tests;
 
 use Gungnir\Event\GenericEventListener;
 use Gungnir\Event\EventDispatcher;
+use Gungnir\Event\GenericEventObject;
 
 class EventDispatcherTest extends \PHPUnit_Framework_TestCase
 {
@@ -11,8 +12,8 @@ class EventDispatcherTest extends \PHPUnit_Framework_TestCase
         $eventDispatcher = new EventDispatcher();
 
         $listener = new GenericEventListener();
-        $closure = (function($eventData){
-            $eventData['eventObject']->tested = true;
+        $closure = (function($eventObject){
+            $eventObject->getData()->tested = true;
         });
 
         $listener->setClosureTorun($closure);
@@ -23,7 +24,7 @@ class EventDispatcherTest extends \PHPUnit_Framework_TestCase
 
         $object = new \StdClass;
 
-        $eventDispatcher->emit('event.test', ['eventObject' => $object]);
+        $eventDispatcher->emit('event.test', new GenericEventObject($object));
 
         $this->assertTrue($object->tested);
     }
@@ -34,8 +35,8 @@ class EventDispatcherTest extends \PHPUnit_Framework_TestCase
 
         $listener = new GenericEventListener();
         $listener->setCatchAll(true);
-        $closure = (function($eventData){
-            $eventData['eventObject']->tested = true;
+        $closure = (function($eventObject){
+            $eventObject->getData()->tested = true;
         });
 
         $listener->setClosureTorun($closure);
@@ -46,8 +47,8 @@ class EventDispatcherTest extends \PHPUnit_Framework_TestCase
         $object1 = new \StdClass();
         $object2 = new \StdClass();
 
-        $eventDispatcher->emit('event.test', ['eventObject' => $object1]);
-        $eventDispatcher->emit('event.test.alternative', ['eventObject' => $object2]);
+        $eventDispatcher->emit('event.test', new GenericEventObject($object1));
+        $eventDispatcher->emit('event.test.alternative', new GenericEventObject($object2));
 
         $this->assertTrue($object1->tested);
         $this->assertTrue($object2->tested);
@@ -60,12 +61,12 @@ class EventDispatcherTest extends \PHPUnit_Framework_TestCase
         $listener1 = new GenericEventListener();
         $listener2 = new GenericEventListener();
 
-        $closure1 = (function($eventData){
-            $eventData['eventObject']->tested1 = true;
+        $closure1 = (function($eventObject){
+            $eventObject->getData()->tested1 = true;
         });
 
-        $closure2 = (function($eventData){
-            $eventData['eventObject']->tested2 = true;
+        $closure2 = (function($eventObject){
+            $eventObject->getData()->tested2 = true;
         });
 
         $listener1->setClosureTorun($closure1);
@@ -78,7 +79,7 @@ class EventDispatcherTest extends \PHPUnit_Framework_TestCase
 
         $object = new \StdClass;    
 
-        $eventDispatcher->emit('event.test', ['eventObject' => $object]);
+        $eventDispatcher->emit('event.test', new GenericEventObject($object));
 
         $this->assertTrue($object->tested1);
         $this->assertTrue($object->tested2);

@@ -1,6 +1,12 @@
 <?php
 namespace Gungnir\Event;
 
+/**
+ * Interface which all implementations of
+ * event listeners should implement
+ *
+ * @package Gungnir\Event
+ */
 interface EventListener
 {
     /**

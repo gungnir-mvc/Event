@@ -1,8 +1,6 @@
 <?php
 namespace Gungnir\Event;
 
-use Closure;
-
 /**
  * EventDispatcher has the responsibility to trigger EventListeners
  * registered to a given event that gets emitted.
@@ -13,7 +11,8 @@ use Closure;
  *
  * Example eventName to emit: gungnir.core.event.demo
  */
-class EventDispatcher {
+class EventDispatcher 
+{
 
     /** @var array $listeners Array of registered closures to events */
     private $listeners = array();
@@ -21,18 +20,19 @@ class EventDispatcher {
     /**
      * Triggers an event
      *
-     * @param  String $eventName Name of event to trigger
-     * @param  array  $data      Array of data to send to listeners
+     * @param  String       $eventName   Name of event to trigger
+     * @param  EventObject  $eventObject EventObject to pass to listeners
      *
      * @return EventDispatcher
      */
-    public function emit(String $eventName, array $data = array()) : EventDispatcher
+    public function emit(String $eventName, EventObject $eventObject = null) : EventDispatcher
     {
-       foreach ($this->listeners as $key => $eventListener) {
+        $eventObject = $eventObject ?? new GenericEventObject(array());
+        foreach ($this->listeners as $key => $eventListener) {
            if (strcmp($eventName, $eventListener->getEventname()) === 0) {
-               $eventListener->trigger($data);
+               $eventListener->trigger($eventObject);
            } elseif ($eventListener->getCatchAll() === true && strpos($eventName, $eventListener->getEventName()) !== false) {
-               $eventListener->trigger($data);
+               $eventListener->trigger($eventObject);
            }
         }
         return $this;
