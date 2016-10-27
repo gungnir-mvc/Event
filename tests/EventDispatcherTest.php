@@ -74,7 +74,7 @@ class EventDispatcherTest extends \PHPUnit_Framework_TestCase
         $listener1->setEventName('event.test');
         $listener2->setEventName('event.test');
 
-        $eventDispatcher->registerEventListeners([$listener1, $listener2]);
+        $eventDispatcher->registerListeners([$listener1, $listener2]);
 
         $object = new \StdClass;    
 

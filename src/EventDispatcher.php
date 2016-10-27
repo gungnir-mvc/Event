@@ -22,7 +22,7 @@ class EventDispatcher {
      * Triggers an event
      *
      * @param  String $eventName Name of event to trigger
-     * @param  array  $data  Array of data to send to listeners
+     * @param  array  $data      Array of data to send to listeners
      *
      * @return EventDispatcher
      */
@@ -58,7 +58,7 @@ class EventDispatcher {
      *
      * @return EventDispatcher
      */
-    public function registerEventListeners(array $eventListeners = [])
+    public function registerListeners(array $eventListeners = [])
     {
         foreach ($eventListeners as $eventListener) {
             $this->registerListener($eventListener);
