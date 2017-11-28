@@ -27,13 +27,27 @@ class EventDispatcher
      */
     public function emit(String $eventName, EventObjectInterface $eventObject = null) : EventDispatcher
     {
-        $eventObject = $eventObject ?? new GenericEventObject(array());
+        $event = new GenericEvent($eventName, $eventObject ?? new GenericEventObject([]));
+        return $this->broadcast($event);
+    }
+
+    /**
+     * @param EventInterface $event
+     *
+     * @return EventDispatcher
+     */
+    public function broadcast(EventInterface $event): EventDispatcher
+    {
+
+        $eventName = $event->getEventName();
+        $eventObject = $event->getEventObject();
+
         foreach ($this->listeners as $key => $eventListener) {
-           if (strcmp($eventName, $eventListener->getEventname()) === 0) {
-               $eventListener->trigger($eventObject);
-           } elseif ($eventListener->getCatchAll() === true && strpos($eventName, $eventListener->getEventName()) !== false) {
-               $eventListener->trigger($eventObject);
-           }
+            if (strcmp($eventName, $eventListener->getEventname()) === 0) {
+                $eventListener->trigger($eventObject);
+            } elseif ($eventListener->getCatchAll() === true && strpos($eventName, $eventListener->getEventName()) !== false) {
+                $eventListener->trigger($eventObject);
+            }
         }
         return $this;
     }
