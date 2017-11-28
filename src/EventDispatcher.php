@@ -21,11 +21,11 @@ class EventDispatcher
      * Triggers an event
      *
      * @param  String           $eventName   Name of event to trigger
-     * @param  null|EventObject $eventObject EventObject to pass to listeners
+     * @param  null|EventObjectInterface $eventObject EventObject to pass to listeners
      *
      * @return EventDispatcher
      */
-    public function emit(String $eventName, EventObject $eventObject = null) : EventDispatcher
+    public function emit(String $eventName, EventObjectInterface $eventObject = null) : EventDispatcher
     {
         $eventObject = $eventObject ?? new GenericEventObject(array());
         foreach ($this->listeners as $key => $eventListener) {
@@ -41,11 +41,11 @@ class EventDispatcher
     /**
      * Registers a listener under a certain event name
      *
-     * @param  EventListener $eventListener
+     * @param  EventListenerInterface $eventListener
      *
      * @return EventDispatcher
      */
-    public function registerListener(EventListener $eventListener) : EventDispatcher
+    public function registerListener(EventListenerInterface $eventListener) : EventDispatcher
     {
         $this->listeners[] = $eventListener;
         return $this;
@@ -54,7 +54,7 @@ class EventDispatcher
     /**
      * Registers multiple event listeners given in an array
      *
-     * @param EventListener[] $eventListeners The given array with EventListeners
+     * @param EventListenerInterface[] $eventListeners The given array with EventListeners
      *
      * @return EventDispatcher
      */

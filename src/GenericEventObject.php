@@ -8,7 +8,7 @@ namespace Gungnir\Event;
  *
  * @package Gungnir\Event
  */
-class GenericEventObject implements EventObject
+class GenericEventObject implements EventObjectInterface
 {
 	/** @var mixed Any data sent with the event */
 	private $data = null;

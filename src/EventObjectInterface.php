@@ -7,7 +7,7 @@ namespace Gungnir\Event;
  *
  * @package Gungnir\Event
  */
-interface EventObject
+interface EventObjectInterface
 {
 	/**
 	 * Returns registered event data

@@ -7,7 +7,7 @@ namespace Gungnir\Event;
  *
  * @package Gungnir\Event
  */
-interface EventListener
+interface EventListenerInterface
 {
     /**
      * Method that handles anything that should be done
@@ -31,9 +31,9 @@ interface EventListener
      *
      * @param string $eventName The given event name
      *
-     * @return EventListener
+     * @return EventListenerInterface
      */
-    public function setEventName(String $eventName) : EventListener;
+    public function setEventName(String $eventName) : EventListenerInterface;
 
     /**
      * If flag is true then this EventListener will trigger on all events
@@ -41,9 +41,9 @@ interface EventListener
      *
      * @param Bool $flag    True Listener should catch all events possible
      *
-     * @return EventListener
+     * @return EventListenerInterface
      */
-    public function setCatchAll(Bool $flag) : EventListener;
+    public function setCatchAll(Bool $flag) : EventListenerInterface;
 
     /**
      * Get flag that determines if EventListener is greedy

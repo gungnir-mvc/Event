@@ -3,7 +3,7 @@ namespace Gungnir\Event;
 
 use \Closure;
 
-class GenericEventListener implements EventListener
+class GenericEventListener implements EventListenerInterface
 {
     /** @var string The name of the event to trigger on */
     private $eventName;
@@ -35,7 +35,7 @@ class GenericEventListener implements EventListener
     /**
      * {@inheritDoc}
      */
-    public function setEventName(String $eventName) : EventListener
+    public function setEventName(String $eventName) : EventListenerInterface
     {
         $this->eventName = $eventName;
         return $this;
@@ -52,7 +52,7 @@ class GenericEventListener implements EventListener
     /**
      * {@inheritDoc}
      */
-    public function setCatchAll(Bool $flag) : EventListener
+    public function setCatchAll(Bool $flag) : EventListenerInterface
     {
         $this->catchAll = $flag;
         return $this;
