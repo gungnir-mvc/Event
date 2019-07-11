@@ -11,7 +11,7 @@ namespace Gungnir\Event;
  *
  * Example eventName to emit: gungnir.core.event.demo
  */
-class EventDispatcher 
+class EventDispatcher implements EventDispatcherInterface
 {
 
     /** @var array $listeners Array of registered closures to events */
